@@ -9,51 +9,77 @@ class ListaDeLaCompra
      */
     private array $products;
 
+
     /**
      *
      */
-    public function __construct(array $productos = [])
+    private function __construct(array $products = [])
     {
-        $this->products = $productos;
+        $this->products = $products;
     }
 
-    public function addProduct(string $name, int $quantity = 1): string
+    private function addProduct(string $name, int $quantity = 1): void
     {
-        if ($quantity <= 0) {
-            $quantity = 1;
+        foreach ($this->productos as &$producto) {
+        if ($producto['nombre'] === $name) {
+            $producto['cantidad'] += $quantity;
+            return;
         }
-        $name = strtolower($name);
-        foreach ($this->products as &$producto) {
+    }
+        $this->productos[] = ['nombre' => $name, 'cantidad' => $quantity];
+    }
+
+    private function deleteProduct(string $name): void
+    {
+        foreach ($this->productos as $key => $producto) {
             if ($producto['nombre'] === $name) {
-                $producto['cantidad'] += $quantity;
-                return "{$name} x{$producto['cantidad']}";
+                unset($this->productos[$key]);
+                $this->productos = array_values($this->productos);
+                return;
             }
         }
-        $this->products[] = ['nombre' => $name, 'cantidad' => $quantity];
-        return "{$name} x{$quantity}";
-    }
-
-    public function deleteProduct(string $name): string
-    {
-        $name = strtolower($name);
-        foreach ($this->products as $key => $producto) {
-            if ($producto['nombre'] === $name) {
-                unset($this->products[$key]);
-                $this->products = array_values($this->products);
-                return "Eliminado: {$name}";
-            }
-        }
-        return "Unset\nEl producto seleccionado no existe";
 
     }
-    public function obtainProducts(): array
-    {
-        return $this->products;
-    }
 
-    public function emptyList()
+    private function emptyList(): void
     {
         $this->products = [];
-        return $this->products;
+    }
+
+    public function ListaDeLaCompra(string $instruccion): string
+    {
+        $partes = explode(' ', $instruccion);
+        $accion = strtolower(array_shift($partes));
+        $nombre = strtolower(array_shift($partes) ?? '');
+        $cantidad = intval(array_shift($partes) ?? 1);
+
+        switch ($accion) {
+            case 'añadir':
+                $this->addProduct($nombre, $cantidad);
+                break;
+            case 'eliminar':
+                $this->deleteProduct($nombre);
+                break;
+            case 'vaciar':
+                $this->emptyList();
+                break;
+            default:
+                return 'Instrucción no válida';
+        }
+
+        return $this->obtainActualState();
+
+    }
+    private function obtainActualState(): string
+    {
+        usort($this->productos, function ($a, $b) {
+            return strcmp($a['nombre'], $b['nombre']);
+        });
+
+        $estado = array_map(function ($producto) {
+            return "{$producto['nombre']} x{$producto['cantidad']}";
+        }, $this->productos);
+
+        return implode(', ', $estado);
     }
 }
