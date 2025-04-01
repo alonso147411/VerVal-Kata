@@ -13,7 +13,7 @@ class ListaDeLaCompra
     /**
      *
      */
-    private function __construct(array $products = [])
+    public function __construct(array $products = [])
     {
         $this->products = $products;
     }
@@ -46,7 +46,7 @@ class ListaDeLaCompra
         $this->products = [];
     }
 
-    public function ListaDeLaCompra(string $instruccion): string
+    public function processListaDeLaCompra(string $instruccion): string
     {
         $partes = explode(' ', $instruccion);
         $accion = strtolower(array_shift($partes));
