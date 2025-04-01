@@ -30,7 +30,7 @@ class ListaDeLaCompraTest extends TestCase
     /**
      * @test
      */
-    public function añadirProductoExistente()
+    public function addExistingProductReturnsProductAddingCuantityToExistingOne()
     {
         $lista = new ListaDeLaCompra([['nombre' => 'pan', 'cantidad' => 1]]);
         $resultado = $lista->addProduct('pan', 2);
@@ -46,7 +46,16 @@ class ListaDeLaCompraTest extends TestCase
         $resultado = $lista->deleteProduct('pan');
         $this->assertEquals('Eliminado: pan', $resultado);
     }
+    /**
+     * @test
+     */
+    public function deleteProductNotExistingReturnsWarning()
+    {
+        $lista = new ListaDeLaCompra([['nombre' => 'pan', 'cantidad' => 1]]);
+        $resultado = $lista->deleteProduct('leche');
+        $this->assertEquals("Unset\nEl producto seleccionado no existe", $resultado);
 
+    }
 
 
 
