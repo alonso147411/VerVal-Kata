@@ -72,33 +72,16 @@ class ListaDeLaCompraTest extends TestCase
         $this->assertEquals('', $resultado);
     }
 
+    /**
+     * @test
+     */
+    public function getCurrentStateReturnsListOfProducts()
+    {
+        $lista = new ListaDeLaCompra([['nombre' => 'pan', 'cantidad' => 1], ['nombre' => 'leche', 'cantidad' => 2]]);
+        $resultado = $lista->processListaDeLaCompra('');
+        $this->assertEquals('leche x2, pan x1', $resultado);
+    }
+
 }
 
 
-//class ListaDeLaCompraTest extends TestCase
-//{
-//
-//
-
-//
-//    /**
-//     * @test
-//     */
-//    public function processListaDeLaCompraVaciarLista()
-//    {
-//        $lista = new ListaDeLaCompra([['nombre' => 'pan', 'cantidad' => 1]]);
-//        $resultado = $lista->processListaDeLaCompra('vaciar');
-//        $this->assertEquals('', $resultado);
-//    }
-//
-//    /**
-//     * @test
-//     */
-//    public function processListaDeLaCompraObtenerEstadoActual()
-//    {
-//        $lista = new ListaDeLaCompra([['nombre' => 'pan', 'cantidad' => 1], ['nombre' => 'leche', 'cantidad' => 2]]);
-//        $resultado = $lista->processListaDeLaCompra('');
-//        $this->assertEquals('leche x2, pan x1', $resultado);
-//    }
-//}
-//}

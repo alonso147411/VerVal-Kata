@@ -7,15 +7,39 @@ class ListaDeLaCompra
     /**
      * @var array|mixed
      */
-    private array $products;
+    private array $productos;
 
 
     /**
      *
      */
-    public function __construct(array $products = [])
+    public function __construct(array $productos = [])
     {
-        $this->products = $products;
+        $this->productos = $productos;
+    }
+    public function processListaDeLaCompra(string $instruccion): string
+    {
+        $partes = explode(' ', $instruccion);
+        $accion = strtolower(array_shift($partes));
+        $nombre = strtolower(array_shift($partes) ?? '');
+        $cantidad = intval(array_shift($partes) ?? 1);
+
+        switch ($accion) {
+            case 'añadir':
+                $this->addProduct($nombre, $cantidad);
+                break;
+            case 'eliminar':
+                $this->deleteProduct($nombre);
+                break;
+            case 'vaciar':
+                $this->emptyList();
+                break;
+            default:
+                return 'Instrucción no válida';
+        }
+
+        return $this->obtainActualState();
+
     }
 
     private function addProduct(string $name, int $quantity = 1): void
@@ -43,33 +67,9 @@ class ListaDeLaCompra
 
     private function emptyList(): void
     {
-        $this->products = [];
+        $this->productos = [];
     }
 
-    public function processListaDeLaCompra(string $instruccion): string
-    {
-        $partes = explode(' ', $instruccion);
-        $accion = strtolower(array_shift($partes));
-        $nombre = strtolower(array_shift($partes) ?? '');
-        $cantidad = intval(array_shift($partes) ?? 1);
-
-        switch ($accion) {
-            case 'añadir':
-                $this->addProduct($nombre, $cantidad);
-                break;
-            case 'eliminar':
-                $this->deleteProduct($nombre);
-                break;
-            case 'vaciar':
-                $this->emptyList();
-                break;
-            default:
-                return 'Instrucción no válida';
-        }
-
-        return $this->obtainActualState();
-
-    }
     private function obtainActualState(): string
     {
         usort($this->productos, function ($a, $b) {
