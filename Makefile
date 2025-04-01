@@ -2,24 +2,24 @@
 main: build-image build-container
 
 build-image:
-	docker build -t prueba-php .
+	docker build -t lista-de-la-compra-php .
 
 build-container:
-	docker run -dt --name prueba-php -v .:/540/Prueba prueba-php
-	docker exec prueba-php composer install
+	docker run -dt --name lista-de-la-compra-php -v .:/540/ListaDeLaCompra lista-de-la-compra-php
+	docker exec lista-de-la-compra-php composer install
 
 start:
-	docker start prueba-php
+	docker start lista-de-la-compra-php
 
 test: start
-	docker exec -it prueba-php ./vendor/bin/phpunit  --colors=always --testdox --verbose tests/$(target)
+	docker exec -it lista-de-la-compra-php ./vendor/bin/phpunit  --colors=always --testdox --verbose tests/$(target)
 
 shell: start
-	docker exec -it prueba-php /bin/bash
+	docker exec -it lista-de-la-compra-php /bin/bash
 
 stop:
-	docker stop prueba-php
+	docker stop lista-de-la-compra-php
 
 clean: stop
-	docker rm prueba-php
+	docker rm lista-de-la-compra-php
 	rm -rf vendor
