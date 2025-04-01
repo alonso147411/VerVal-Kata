@@ -4,41 +4,54 @@ namespace Deg540\Prueba;
 
 class ListaDeLaCompra
 {
+    /**
+     * @var array|mixed
+     */
+    private mixed $array;
 
     /**
      *
      */
-    public function __construct()
+    public function __construct($array = [])
     {
+        $this->array = $array;
     }
 
-
-    public function addProduct(string $string, int $int): array
+    public function addProduct(string $string, int $int): int
     {
         $productLower = strtolower($string);
+        $cuantity = 0;
         if ($this->existsProduct($productLower)) {
-            $cuantity = 0;
             $cuantity += $int;
         }
-        if ($this->noCuantityGiven($int)) {
+        if ($int === 0) {
             $cuantity = 1;
         }
-        return [
+        return array_push($this->array, [
             'product' => $productLower,
             'cuantity' => $cuantity
-        ];
+        ]);
     }
 
     private function existsProduct(string $productLower) : bool
     {
-        return in_array($productLower, ['leche', 'pan', 'huevos']);
+        return $this->array = array_map($productLower, $this->array);
     }
 
-    private function noCuantityGiven(int $int): bool
+    public function deleteProduct(string $string): array
     {
-        return $int === 0;
+        $productLower = strtolower($string);
+        return $this->remover($productLower, $this->array);
+
     }
-
-
+    private function remover ($valor,$arr)
+    {
+        foreach (array_keys($arr, $valor) as $key)
+        {
+            unset($arr[$key]);
+        }
+        echo "Removiendo: ".$valor."\n\n";
+        return $arr;
+    }
 
 }

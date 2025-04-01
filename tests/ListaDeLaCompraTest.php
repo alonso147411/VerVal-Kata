@@ -15,12 +15,13 @@ class ListaDeLaCompraTest extends TestCase
     public function addProductReturnsProductAndCuantity()
     {
         $lista = new ListaDeLaCompra();
+        $result = $lista->addProduct('Leche', 2);
         $this->assertEquals(
             [
                 'product' => 'leche',
                 'cuantity' => 2
             ],
-            $lista->addProduct('Leche', 2)
+            $result
         );
     }
     /**
@@ -29,14 +30,31 @@ class ListaDeLaCompraTest extends TestCase
     public function addProductWithoutCuantityReturnsProductWithDefalutValue()
     {
         $lista = new ListaDeLaCompra();
+        $result = $lista->addProduct('Leche', 0);
         $this->assertEquals(
             [
                 'product' => 'huevos',
                 'cuantity' => 1
             ],
-            $lista->addProduct('Huevos', 0)
+            $result
         );
     }
+    /**
+     * @test
+     */
+    public function deleteProductReturnsProductListWithoutProduct()
+    {
+        $lista = new ListaDeLaCompra();
+        $result = $lista->deleteProduct('Leche');
+        $this->assertEquals(
+            [
+                'product' => 'huevos',
+                'cuantity' => 1
+            ],
+            $result
+        );
+    }
+
 
 
 
