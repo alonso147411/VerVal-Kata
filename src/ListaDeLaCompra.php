@@ -39,6 +39,7 @@ class ListaDeLaCompra
         foreach ($this->products as $key => $producto) {
             if ($producto['nombre'] === $name) {
                 unset($this->products[$key]);
+                $this->products = array_values($this->products);
                 return "Eliminado: {$name}";
             }
         }
