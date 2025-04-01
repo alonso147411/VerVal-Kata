@@ -50,4 +50,10 @@ class ListaDeLaCompra
     {
         return $this->products;
     }
+
+    public function emptyList()
+    {
+        $this->products = [];
+        return $this->products;
+    }
 }
