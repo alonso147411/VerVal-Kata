@@ -34,8 +34,7 @@ class ListaDeLaCompra
             case 'vaciar':
                 $this->emptyList();
                 break;
-            default:
-                return 'Instrucción no válida';
+
         }
 
         return $this->obtainActualState();
