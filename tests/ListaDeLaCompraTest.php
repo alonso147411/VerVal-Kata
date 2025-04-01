@@ -84,15 +84,6 @@ class ListaDeLaCompraTest extends TestCase
         $resultado = $lista->emptyList();
         $this->assertEquals([], $resultado);
     }
-    /**
-     * @test
-     */
-    public function emptyListWithNoProductsReturnsEmptyArray()
-    {
-        $lista = new ListaDeLaCompra();
-        $resultado = $lista->emptyList();
-        $this->assertEquals([], $resultado);
-    }
 
 
 }
