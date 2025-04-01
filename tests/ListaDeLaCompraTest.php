@@ -57,6 +57,25 @@ class ListaDeLaCompraTest extends TestCase
 
     }
 
+    /**
+     * @test
+     */
+    public function obteningProductsWithOneElementReturnsProductInList()
+    {
+        $lista = new ListaDeLaCompra([['nombre' => 'pan', 'cantidad' => 1]]);
+        $resultado = $lista->obtainProducts();
+        $this->assertEquals([['nombre' => 'pan', 'cantidad' => 1]], $resultado);
+    }
+    /**
+     * @test
+     */
+    public function obteningProductsWithMoreElementsReturnsCompleteProductList()
+    {
+        $lista = new ListaDeLaCompra([['nombre' => 'pan', 'cantidad' => 1], ['nombre' => 'leche', 'cantidad' => 2]]);
+        $resultado = $lista->obtainProducts();
+        $this->assertEquals([['nombre' => 'pan', 'cantidad' => 1], ['nombre' => 'leche', 'cantidad' => 2]], $resultado);
+    }
+
 
 
 }
