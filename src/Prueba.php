@@ -1,14 +1,21 @@
 <?php
 
-namespace tests;
+namespace Deg540\Prueba;
 
 class Prueba
 {
 
     /**
-     * @param string $string
+     *
      */
-    public function __construct($string)
+    public function __construct()
     {
+    }
+    /**
+     * @return int
+     */
+    public function prueba()
+    {
+        return 1;
     }
 }
