@@ -15,9 +15,13 @@ class ListaDeLaCompraTest extends TestCase
     public function addProductReturnsProductAndCuantity()
     {
         $lista = new ListaDeLaCompra();
-        $lista->addProduct("Leche", 2);
-        $this->assertEquals("Leche", $lista->getProducts()[0]['product']);
-        $this->assertEquals(2, $lista->getProducts()[0]['cuantity']);
+        $this->assertEquals(
+            [
+                'product' => 'leche',
+                'cuantity' => 2
+            ],
+            $lista->addProduct('Leche', 2)
+        );
     }
 
 
