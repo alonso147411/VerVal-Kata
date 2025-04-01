@@ -17,29 +17,29 @@ class ListaDeLaCompra
         $this->products = $productos;
     }
 
-    public function addProduct(string $name, int $numberProducts = 1): string
+    public function addProduct(string $name, int $quantity = 1): string
     {
-        if ($numberProducts <= 0) {
-            $numberProducts = 1;
+        if ($quantity <= 0) {
+            $quantity = 1;
         }
         $name = strtolower($name);
         foreach ($this->products as &$producto) {
             if ($producto['nombre'] === $name) {
-                $producto['cantidad'] += $numberProducts;
+                $producto['cantidad'] += $quantity;
                 return "{$name} x{$producto['cantidad']}";
             }
         }
-        $this->products[] = ['nombre' => $name, 'cantidad' => $numberProducts];
-        return "{$name} x{$numberProducts}";
+        $this->products[] = ['nombre' => $name, 'cantidad' => $quantity];
+        return "{$name} x{$quantity}";
     }
 
     public function deleteProduct(string $name): string
     {
-        $nombre = strtolower($name);
+        $name = strtolower($name);
         foreach ($this->products as $key => $producto) {
-            if ($producto['nombre'] === $nombre) {
+            if ($producto['nombre'] === $name) {
                 unset($this->products[$key]);
-                return "Eliminado: {$nombre}";
+                return "Eliminado: {$name}";
             }
         }
         return "Unset\nEl producto seleccionado no existe";
