@@ -12,7 +12,7 @@ class ListaDeLaCompraTest extends TestCase
     /**
      * @test
      */
-    public function addProductReturnsProductAndCuantity()
+    public function addProductReturnsProductAndQuantity()
     {
         $lista = new ListaDeLaCompra();
         $resultado = $lista->processListaDeLaCompra('añadir pan 2');
@@ -22,7 +22,7 @@ class ListaDeLaCompraTest extends TestCase
     /**
      * @test
      */
-    public function addProductWithoutCuantityReturnsProductWithDefalutValue()
+    public function addProductWithoutQuantityReturnsProductWithDefaultValue()
     {
         $lista = new ListaDeLaCompra();
         $resultado = $lista->processListaDeLaCompra('añadir pan');
@@ -32,7 +32,7 @@ class ListaDeLaCompraTest extends TestCase
     /**
      * @test
      */
-    public function addExistingProductReturnsProductAddingCuantityToExistingOne()
+    public function addExistingProductReturnsProductAddingQuantityToExistingOne()
     {
         $lista = new ListaDeLaCompra([['nombre' => 'pan', 'cantidad' => 1]]);
         $resultado = $lista->processListaDeLaCompra('añadir pan 2');
