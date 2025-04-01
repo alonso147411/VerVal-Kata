@@ -23,6 +23,21 @@ class ListaDeLaCompraTest extends TestCase
             $lista->addProduct('Leche', 2)
         );
     }
+    /**
+     * @test
+     */
+    public function addProductWithoutCuantityReturnsProductWithDefalutValue()
+    {
+        $lista = new ListaDeLaCompra();
+        $this->assertEquals(
+            [
+                'product' => 'huevos',
+                'cuantity' => 1
+            ],
+            $lista->addProduct('Huevos', 0)
+        );
+    }
+
 
 
 }
