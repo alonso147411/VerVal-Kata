@@ -34,7 +34,6 @@ class ListaDeLaCompra
             case 'vaciar':
                 $this->emptyList();
                 break;
-
         }
 
         return $this->obtainActualState();

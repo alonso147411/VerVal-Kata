@@ -45,6 +45,15 @@ class ListaDeLaCompraTest extends TestCase
     public function deleteProductReturnsProductListWithoutProduct()
     {
 
+        $lista = new ListaDeLaCompra([['nombre' => 'pan', 'cantidad' => 1], ['nombre' => 'leche', 'cantidad' => 2]]);
+        $resultado = $lista->processListaDeLaCompra('eliminar pan');
+        $this->assertEquals('leche x2',$resultado);
+    }
+    /**
+     * @test
+     */
+    public function deleteProductWhenListHasOnlyOneReturnsEmptyList()
+    {
         $lista = new ListaDeLaCompra([['nombre' => 'pan', 'cantidad' => 1]]);
         $resultado = $lista->processListaDeLaCompra('eliminar pan');
         $this->assertEquals('', $resultado);
@@ -53,7 +62,7 @@ class ListaDeLaCompraTest extends TestCase
     /**
      * @test
      */
-    public function deleteProductNotExistingReturnsWarning()
+    public function deleteProductNotExistingReturnsEmptyArray()
     {
         $lista = new ListaDeLaCompra();
         $resultado = $lista->processListaDeLaCompra('eliminar pan');
@@ -75,11 +84,21 @@ class ListaDeLaCompraTest extends TestCase
     /**
      * @test
      */
-    public function getCurrentStateReturnsListOfProducts()
+    public function currentStateReturnsListOfProducts()
     {
         $lista = new ListaDeLaCompra([['nombre' => 'pan', 'cantidad' => 1], ['nombre' => 'leche', 'cantidad' => 2]]);
         $resultado = $lista->processListaDeLaCompra('');
         $this->assertEquals('leche x2, pan x1', $resultado);
+    }
+
+    /**
+     * @test
+     */
+    public function currentStateWhenListEmptyReturnsEmptyList()
+    {
+        $lista = new ListaDeLaCompra();
+        $resultado = $lista->processListaDeLaCompra('');
+        $this->assertEquals('', $resultado);
     }
 
 }
