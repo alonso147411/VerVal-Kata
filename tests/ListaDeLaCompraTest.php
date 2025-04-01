@@ -15,14 +15,8 @@ class ListaDeLaCompraTest extends TestCase
     public function addProductReturnsProductAndCuantity()
     {
         $lista = new ListaDeLaCompra();
-        $result = $lista->addProduct('Leche', 2);
-        $this->assertEquals(
-            [
-                'product' => 'leche',
-                'cuantity' => 2
-            ],
-            $result
-        );
+        $resultado = $lista->addProduct('pan', 2);
+        $this->assertEquals('pan x2', $resultado);
     }
     /**
      * @test
@@ -30,29 +24,27 @@ class ListaDeLaCompraTest extends TestCase
     public function addProductWithoutCuantityReturnsProductWithDefalutValue()
     {
         $lista = new ListaDeLaCompra();
-        $result = $lista->addProduct('Leche', 0);
-        $this->assertEquals(
-            [
-                'product' => 'huevos',
-                'cuantity' => 1
-            ],
-            $result
-        );
+        $resultado = $lista->addProduct('pan');
+        $this->assertEquals('pan x1', $resultado);
+    }
+    /**
+     * @test
+     */
+    public function añadirProductoExistente()
+    {
+        $lista = new ListaDeLaCompra([['nombre' => 'pan', 'cantidad' => 1]]);
+        $resultado = $lista->addProduct('pan', 2);
+        $this->assertEquals('pan x3', $resultado);
     }
     /**
      * @test
      */
     public function deleteProductReturnsProductListWithoutProduct()
     {
-        $lista = new ListaDeLaCompra();
-        $result = $lista->deleteProduct('Leche');
-        $this->assertEquals(
-            [
-                'product' => 'huevos',
-                'cuantity' => 1
-            ],
-            $result
-        );
+
+        $lista = new ListaDeLaCompra([['nombre' => 'pan', 'cantidad' => 1]]);
+        $resultado = $lista->deleteProduct('pan');
+        $this->assertEquals('Eliminado: pan', $resultado);
     }
 
 

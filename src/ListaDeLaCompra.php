@@ -7,51 +7,46 @@ class ListaDeLaCompra
     /**
      * @var array|mixed
      */
-    private mixed $array;
+    private array $products;
 
     /**
      *
      */
-    public function __construct($array = [])
+    public function __construct(array $productos = [])
     {
-        $this->array = $array;
+        $this->products = $productos;
     }
 
-    public function addProduct(string $string, int $int): int
+    public function addProduct(string $name, int $numberProducts = 1): string
     {
-        $productLower = strtolower($string);
-        $cuantity = 0;
-        if ($this->existsProduct($productLower)) {
-            $cuantity += $int;
+        if ($numberProducts <= 0) {
+            $numberProducts = 1;
         }
-        if ($int === 0) {
-            $cuantity = 1;
+        $name = strtolower($name);
+        foreach ($this->products as &$producto) {
+            if ($producto['nombre'] === $name) {
+                $producto['cantidad'] += $numberProducts;
+                return "{$name} x{$producto['cantidad']}";
+            }
         }
-        return array_push($this->array, [
-            'product' => $productLower,
-            'cuantity' => $cuantity
-        ]);
+        $this->products[] = ['nombre' => $name, 'cantidad' => $numberProducts];
+        return "{$name} x{$numberProducts}";
     }
 
-    private function existsProduct(string $productLower) : bool
+    public function deleteProduct(string $name): string
     {
-        return $this->array = array_map($productLower, $this->array);
-    }
-
-    public function deleteProduct(string $string): array
-    {
-        $productLower = strtolower($string);
-        return $this->remover($productLower, $this->array);
-
-    }
-    private function remover ($valor,$arr)
-    {
-        foreach (array_keys($arr, $valor) as $key)
-        {
-            unset($arr[$key]);
+        $nombre = strtolower($name);
+        foreach ($this->products as $key => $producto) {
+            if ($producto['nombre'] === $nombre) {
+                unset($this->products[$key]);
+                return "Eliminado: {$nombre}";
+            }
         }
-        echo "Removiendo: ".$valor."\n\n";
-        return $arr;
-    }
+        return "Unset\nEl producto seleccionado no existe";
 
+    }
+    public function obtainProducts(): array
+    {
+        return $this->products;
+    }
 }
